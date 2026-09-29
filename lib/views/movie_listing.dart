@@ -42,17 +42,17 @@ class MovieListing extends StatelessWidget {
                   SizedBox(height: 15),
                   Text(
                     'Thursday 1st June 2026, 7:30 PM - 9:30 PM ',
-                    
+                    style: cinemaBodyStyle
                   ),
                   SizedBox(height: 30),
                   Text(
                     'Please note that Discounts / Membership Benefits will be applied once you have selected your tickets.',
-                    
+                    style: cinemaBodyStyle
                   ),
                   SizedBox(height: 15),
                   Text(
                     'Select Quantities (Up to 5 in total) ',
-
+                    style: cinemaBodyStyle
                   ),
                   SizedBox(height: 15),
 
