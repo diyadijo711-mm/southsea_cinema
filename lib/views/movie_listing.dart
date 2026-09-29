@@ -126,7 +126,8 @@ class _MovieListingState extends State<MovieListing> {
                   ),
                 ),
                 child: Text(
-                  'You ordered $totalTicket ticket${totalTicket == 1 ? '' : 's'}',
+                  'ADD TO ORDER \n You ordered $totalTicket ticket${totalTicket == 1 ? '' : 's'}',
+                  textAlign: TextAlign.center,
                   style: cinemaBodyStyle,
                 ),
               ),
