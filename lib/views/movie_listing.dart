@@ -97,10 +97,27 @@ class _MovieListingState extends State<MovieListing> {
                 ),
                 const SizedBox(width: 16),
                 const Text(
-                  'Adult (£7.50)',
+                  'Adult (£7.50) ',
                   style: cinemaBodyStyle,
                 ),
               ],
+            ),
+            Padding(
+              padding: const EdgeInsets.only(left: 20, top: 20),
+              child: ElevatedButton(
+                onPressed: () {
+                  // Handle the "ADD TO ORDER" button press
+                },
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: cinemaBrand,
+                  foregroundColor: Colors.white,
+                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.zero,
+                  ),
+                ),
+                child: const Text('ADD TO ORDER', style: cinemaBodyStyle),
+              ),
             ),
           ],
         ),
