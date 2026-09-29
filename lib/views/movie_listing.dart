@@ -10,7 +10,8 @@ class MovieListing extends StatefulWidget {
 }
 
 class _MovieListingState extends State<MovieListing> {
-  int _ticketQuantity = 0;
+  int _ticketQuantity = 1;
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -70,14 +71,13 @@ class _MovieListingState extends State<MovieListing> {
               children: [
                 //--
                 DropdownMenu<int>(
-                  initialSelection: 1, // Starts at 1 ticket
+                  initialSelection: _ticketQuantity,
                   onSelected: (int? value) {
                     if (value != null) {
                       setState(() {
                         _ticketQuantity = value;
                       });
                     }
-
                   },
                   dropdownMenuEntries: const [
                     DropdownMenuEntry(value: 1, label: '1'),
