@@ -32,7 +32,6 @@ class MovieListing extends StatelessWidget {
                 children: [
                   Text(
                     'How to Train Your Dragon (2010) (PG) ', 
-                    textAlign: TextAlign.left,
                     style: cinemaHeaderStyle,
                   ),
                   SizedBox(height: 30),
@@ -60,7 +59,7 @@ class MovieListing extends StatelessWidget {
                     'TICKETS',
                     style: cinemaHeaderStyle
                   ),
-                  SizedBox(height: 16),
+                  SizedBox(height: 40),
                 ],
               ),
             ),
