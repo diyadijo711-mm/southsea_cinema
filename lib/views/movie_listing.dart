@@ -44,7 +44,7 @@ class _MovieListingState extends State<MovieListing> {
                     'Southsea Cinema Room ',
                   ),
                   Text(
-                    'Thursday 1st June 2026, 7:30 PM - 9:30 PM ',
+                    'Thursday 1st June 2026, 7:30 PM - 9:30 PM \n',
                     style: cinemaBodyStyle
                   ),
                   Text(
@@ -63,19 +63,20 @@ class _MovieListingState extends State<MovieListing> {
               ),
             ),
 
-
-
-            // EXERCISE 2: Row for Dropdown and Button
+            
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: [
+                const SizedBox(width: 20),
+
                 DropdownMenu<int>(
                   inputDecorationTheme: const InputDecorationTheme(
                     filled: true,
                     fillColor: Colors.white,
                     border: OutlineInputBorder(
-                    borderRadius: BorderRadius.zero,)
+                      borderRadius: BorderRadius.zero,
+                    ),
                   ),
                   textStyle: const TextStyle(color: Colors.black),
                   initialSelection: _ticketQuantity,
@@ -94,7 +95,11 @@ class _MovieListingState extends State<MovieListing> {
                     DropdownMenuEntry(value: 5, label: '5'),
                   ],
                 ),
-                
+                const SizedBox(width: 16),
+                const Text(
+                  'Adult (£7.50)',
+                  style: cinemaBodyStyle,
+                ),
               ],
             ),
           ],
