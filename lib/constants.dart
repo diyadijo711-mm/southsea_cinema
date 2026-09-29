@@ -13,12 +13,12 @@ const Color cinemaSurface = Color(0xFF242936);
 
 const TextStyle cinemaHeaderStyle = TextStyle(
   color: cinemaFontWhite,
-  fontSize: 18,
+  fontSize: 24,
   fontWeight: FontWeight.bold,
 );
 
 const TextStyle cinemaBodyStyle = TextStyle(
   color: cinemaFontWhite,
-  fontSize: 10,
+  fontSize: 15,
   fontWeight: FontWeight.normal,
 );
