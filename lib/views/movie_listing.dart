@@ -74,6 +74,8 @@ class _MovieListingState extends State<MovieListing> {
                   inputDecorationTheme: const InputDecorationTheme(
                     filled: true,
                     fillColor: Colors.white,
+                    border: OutlineInputBorder(
+                    borderRadius: BorderRadius.zero,)
                   ),
                   textStyle: const TextStyle(color: Colors.black),
                   initialSelection: _ticketQuantity,
@@ -92,6 +94,7 @@ class _MovieListingState extends State<MovieListing> {
                     DropdownMenuEntry(value: 5, label: '5'),
                   ],
                 ),
+                
               ],
             ),
           ],
