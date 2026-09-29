@@ -11,6 +11,8 @@ const Color cinemaFontWhite = Color(0xFFFFFFFF);
 const Color cinemaFontMuted = Color(0xFF8A90A0);
 const Color cinemaSurface = Color(0xFF242936);
 
+const Color cinemaDDButton = Color.fromARGB(255, 126, 156, 165);
+
 const TextStyle cinemaHeaderStyle = TextStyle(
   color: cinemaFontWhite,
   fontSize: 24,
