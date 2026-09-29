@@ -9,8 +9,14 @@ class MovieListing extends StatefulWidget {
   State<MovieListing> createState() => _MovieListingState();
 }
 
+
 class _MovieListingState extends State<MovieListing> {
-  int _ticketQuantity = 1;
+  int _ticketQuantity = 0;
+  int totalTicket = 0;
+
+  int _ticketOrdered (int quantity) {
+    return quantity;
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -88,6 +94,7 @@ class _MovieListingState extends State<MovieListing> {
                     }
                   },
                   dropdownMenuEntries: const [
+                    DropdownMenuEntry(value: 0, label: '0'),
                     DropdownMenuEntry(value: 1, label: '1'),
                     DropdownMenuEntry(value: 2, label: '2'),
                     DropdownMenuEntry(value: 3, label: '3'),
@@ -106,7 +113,9 @@ class _MovieListingState extends State<MovieListing> {
               padding: const EdgeInsets.only(left: 20, top: 20),
               child: ElevatedButton(
                 onPressed: () {
-                  // Handle the "ADD TO ORDER" button press
+                  setState(() {
+                    totalTicket = _ticketOrdered(_ticketQuantity);
+                  });
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: cinemaBrand,
@@ -116,7 +125,10 @@ class _MovieListingState extends State<MovieListing> {
                     borderRadius: BorderRadius.zero,
                   ),
                 ),
-                child: const Text('ADD TO ORDER', style: cinemaBodyStyle),
+                child: Text(
+                  'You ordered $totalTicket ticket${totalTicket == 1 ? '' : 's'}',
+                  style: cinemaBodyStyle,
+                ),
               ),
             ),
           ],
