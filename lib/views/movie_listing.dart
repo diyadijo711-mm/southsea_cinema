@@ -68,9 +68,14 @@ class _MovieListingState extends State<MovieListing> {
             // EXERCISE 2: Row for Dropdown and Button
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                //--
                 DropdownMenu<int>(
+                  inputDecorationTheme: const InputDecorationTheme(
+                    filled: true,
+                    fillColor: Colors.white,
+                  ),
+                  textStyle: const TextStyle(color: Colors.black),
                   initialSelection: _ticketQuantity,
                   onSelected: (int? value) {
                     if (value != null) {
