@@ -2,9 +2,15 @@ import 'package:flutter/material.dart';
 import 'package:southsea_cinema/constants.dart';
 import 'package:southsea_cinema/widgets/nav_drawer.dart';
 
-class MovieListing extends StatelessWidget {
+class MovieListing extends StatefulWidget {
   const MovieListing({super.key});
 
+  @override
+  State<MovieListing> createState() => _MovieListingState();
+}
+
+class _MovieListingState extends State<MovieListing> {
+  int _ticketQuantity = 0;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,18 +28,15 @@ class MovieListing extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
 
-
-            // EXERCISE 1: Container for Title and Description
+            //---
             Container(
               padding: const EdgeInsets.all(16.0),
-              // You can add a color here later, e.g., color: cinemaSurface,
               child: const Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 spacing: 16,
                 children: [
                   Text(
                     'How to Train Your Dragon (2010) (PG) ', 
-
                     style: cinemaHeaderStyle,
                   ),
                   Text(
@@ -66,14 +69,23 @@ class MovieListing extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 //--
-                const Text('Dropdown placeholder'), 
-                
-                const SizedBox(width: 16), // Spacing
+                DropdownMenu<int>(
+                  initialSelection: 1, // Starts at 1 ticket
+                  onSelected: (int? value) {
+                    if (value != null) {
+                      setState(() {
+                        _ticketQuantity = value;
+                      });
+                    }
 
-                //--
-                ElevatedButton(
-                  onPressed: () {}, // We will add logic here later
-                  child: const Text('Add to order'),
+                  },
+                  dropdownMenuEntries: const [
+                    DropdownMenuEntry(value: 1, label: '1'),
+                    DropdownMenuEntry(value: 2, label: '2'),
+                    DropdownMenuEntry(value: 3, label: '3'),
+                    DropdownMenuEntry(value: 4, label: '4'),
+                    DropdownMenuEntry(value: 5, label: '5'),
+                  ],
                 ),
               ],
             ),
