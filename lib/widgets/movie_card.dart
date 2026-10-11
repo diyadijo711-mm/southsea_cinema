@@ -24,7 +24,7 @@ class MovieCard extends StatelessWidget {
                 height: 80,
                 fit: BoxFit.cover,
                 ),
-              const SizedBox(height: 16, width: 16),
+              const SizedBox( width: 16),
               Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
@@ -46,6 +46,7 @@ class MovieCard extends StatelessWidget {
               ),
               ],
             ),
+          const SizedBox(height: 16,),
           Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
