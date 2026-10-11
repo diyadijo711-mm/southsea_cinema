@@ -52,7 +52,7 @@ class MovieCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  'Rating: ${movie.rating.toStringAsFixed(2)}',
+                  'Show Time: ${movie.showTime.toString()}',
                   style: const TextStyle(
                     fontSize: 16,
                     fontWeight: FontWeight.bold,
