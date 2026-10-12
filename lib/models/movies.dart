@@ -4,7 +4,8 @@ class Movie {
   final String runTime;
   final String description;
   final String posterPath;
-  final DateTime showTime;
+  final String showTime;
+  final String ageRating;
 
   const Movie({
     required this.id,
@@ -13,5 +14,6 @@ class Movie {
     required this.description,
     required this.posterPath,
     required this.showTime,
+    required this.ageRating,
   });
 }
