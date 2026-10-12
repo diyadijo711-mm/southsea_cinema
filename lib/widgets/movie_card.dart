@@ -80,13 +80,16 @@ class MovieCard extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: cinemaBrand,
                     foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
+                    padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 12),
                     shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.zero,
                     ),
                   ),
                   onPressed: () {},
-                  child: const Text('Book Now'),
+                  child: const Text(
+                    'Book Now',
+                    style: TextStyle(fontSize: 16),
+                  ),
                 ),
               ],
             ),
