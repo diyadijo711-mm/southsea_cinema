@@ -4,7 +4,7 @@ class MovieRepository {
   List<Movie> getMovies() {
     return [
       Movie(
-        id: '1',
+        id: 'M1',
         title: 'How to Train Your Dragon',
         runTime: '1h 42m',
         description:
@@ -15,7 +15,7 @@ class MovieRepository {
         price: 6.00,
       ),
       Movie(
-        id: '2',
+        id: 'M2',
         title: 'Tangled',
         runTime: '1h 58m',
         description:
@@ -26,7 +26,7 @@ class MovieRepository {
         price: 7.50,
       ),
       Movie(
-        id: '3',
+        id: 'M3',
         title: 'Avengers: Endgame',
         runTime: '2h 28m',
         description:

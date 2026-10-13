@@ -5,7 +5,7 @@ void main() {
   group('Movie model tests', () {
     test('creates Movie instance with given properties', () {
       const movie = Movie(
-        id: '3',
+        id: 'M3',
         title: 'Avengers: Endgame',
         runTime: '2h 28m',
         description: 'The film follows the Avengers as they attempt to reverse the effects of Thanos\' actions.',
@@ -15,7 +15,7 @@ void main() {
         price: 6.00,
       );
 
-      expect(movie.id, 'movie1');
+      expect(movie.id, 'M3');
       expect(movie.title, 'Avengers: Endgame');
       expect(movie.runTime, '2h 28m');
       expect(movie.description, 'The film follows the Avengers as they attempt to reverse the effects of Thanos\' actions.');
@@ -27,7 +27,7 @@ void main() {
 
     test('formattedPrice returns correct string representation', () {
       const movie = Movie(
-        id: '3',
+        id: 'M3',
         title: 'Avengers: Endgame',
         runTime: '2h 28m',
         description: 'The film follows the Avengers as they attempt to reverse the effects of Thanos\' actions.',
@@ -42,7 +42,7 @@ void main() {
 
     test('isChildFriendly returns correct boolean value', () {
       const movie = Movie(
-        id: '3',
+        id: 'M3',
         title: 'Avengers: Endgame',
         runTime: '2h 28m',
         description: 'The film follows the Avengers as they attempt to reverse the effects of Thanos\' actions.',
@@ -57,7 +57,7 @@ void main() {
 
     test('isAdultOnly returns correct boolean value', () {
       const movie = Movie(
-        id: '3',
+        id: 'M3',
         title: 'Avengers: Endgame',
         runTime: '2h 28m',
         description: 'The film follows the Avengers as they attempt to reverse the effects of Thanos\' actions.',
