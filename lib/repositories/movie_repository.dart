@@ -25,6 +25,17 @@ class MovieRepository {
         ageRating: '12A',
         price: 7.50,
       ),
+      Movie(
+        id: '3',
+        title: 'Avengers: Endgame',
+        runTime: '2h 28m',
+        description:
+            'The film follows the Avengers as they attempt to reverse the effects of Thanos\' actions.',
+        posterPath: 'assets/images/avengers.jpeg',
+        showTime: 'Sunday, 15 October 2023, 19:00',
+        ageRating: 'PG',
+        price: 6.00,
+      ),
     ];
     
   }

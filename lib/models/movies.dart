@@ -27,7 +27,7 @@ class Movie {
   }
 
   bool get isChildFriendly {
-    return ageRating == 'U' || ageRating == 'PG';
+    return ageRating == 'U' || ageRating == 'PG' || ageRating == '12A';
   }
 
   bool get isAdultOnly {
