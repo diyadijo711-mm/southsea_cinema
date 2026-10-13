@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:southsea_cinema/constants.dart';
 import 'package:southsea_cinema/widgets/nav_drawer.dart';
 import 'package:southsea_cinema/models/movies.dart';
+import 'package:southsea_cinema/widgets/movie_card.dart';
 
 class MovieListing extends StatefulWidget {
   final Movie movie;
@@ -38,105 +39,98 @@ class _MovieListingState extends State<MovieListing> {
           children: [
 
             //---
-            Container(
-              padding: const EdgeInsets.all(16.0),
-              child: const Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                spacing: 16,
-                children: [
-                  Text(
-                    'How to Train Your Dragon (2010) (PG) ', 
-                    style: cinemaHeaderStyle,
-                  ),
-                  Text(
-                    'Southsea Cinema Room ',
-                  ),
-                  Text(
-                    'Thursday 1st June 2026, 7:30 PM - 9:30 PM \n',
-                    style: cinemaBodyStyle
-                  ),
-                  Text(
-                    'Please note that Discounts / Membership Benefits will be applied once you have selected your tickets.',
-                    style: cinemaBodyStyle
-                  ),
-                  Text(
-                    'Select Quantities (Up to 5 in total) ',
-                    style: cinemaBodyStyle
-                  ),
-                  Text(
-                    'TICKETS',
-                    style: cinemaHeaderStyle
-                  ),
-                ],
-              ),
-            ),
-
-            
-            Row(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                const SizedBox(width: 20),
-
-                DropdownMenu<int>(
-                  inputDecorationTheme: const InputDecorationTheme(
-                    filled: true,
-                    fillColor: Colors.white,
-                    border: OutlineInputBorder(
-                      borderRadius: BorderRadius.zero,
+            Center(
+              child: Container(
+                color: cinemaSurface,
+                margin: const EdgeInsets.all(16.0),
+                padding: const EdgeInsets.all(16.0),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  spacing: 16,
+                  children: [
+                    Text(
+                      "${widget.movie.title} (${widget.movie.ageRating})",
+                      style: cinemaHeaderStyle.copyWith(fontSize: 22),
                     ),
-                  ),
-                  textStyle: const TextStyle(color: Colors.black),
-                  initialSelection: _ticketQuantity,
-                  onSelected: (int? value) {
-                    if (value != null) {
-                      setState(() {
-                        _ticketQuantity = value;
-                      });
-                    }
-                  },
-                  dropdownMenuEntries: const [
-                    DropdownMenuEntry(value: 0, label: '0'),
-                    DropdownMenuEntry(value: 1, label: '1'),
-                    DropdownMenuEntry(value: 2, label: '2'),
-                    DropdownMenuEntry(value: 3, label: '3'),
-                    DropdownMenuEntry(value: 4, label: '4'),
-                    DropdownMenuEntry(value: 5, label: '5'),
-                  ],
-                ),
-                const SizedBox(width: 16),
-                const Text(
-                  'Adult (£7.50) ',
-                  style: cinemaBodyStyle,
-                ),
-              ],
-            ),
-            Padding(
-              padding: const EdgeInsets.only(left: 20, top: 20),
-              child: ElevatedButton(
-                onPressed: () {
-                  setState(() {
-                    totalTicket = _ticketOrdered(_ticketQuantity);
-                  });
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: cinemaBrand,
-                  foregroundColor: Colors.white,
-                  padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.zero,
-                  ),
-                ),
-                child: Text(
-                  'ADD TO ORDER \n You ordered $totalTicket ticket${totalTicket == 1 ? '' : 's'}',
-                  textAlign: TextAlign.center,
-                  style: cinemaBodyStyle,
-                ),
-              ),
-            ),
-          ],
+                    Image.asset(
+                      widget.movie.posterPath,
+                      width: 150,
+                      height: 200,
+                      fit: BoxFit.fill,
+                    ),
+                    const Text(
+                      'Southsea Cinema Room ',
+                    ),
+                    Text(
+                      '${widget.movie.showTime} \n',
+                      style: cinemaBodyStyle,
+                    ),
+                    Text(
+                      '${widget.movie.description} \n',
+                      style: cinemaBodyStyle,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      crossAxisAlignment: CrossAxisAlignment.center,
+                      children: [
+                        Text(
+                          'Tickets (£6.00 each) ',
+                          style: cinemaBodyStyle,
+                        ),
+                        const SizedBox(width: 12),
+                        DropdownMenu<int>(
+                          textStyle: const TextStyle(color: Colors.white),
+                          initialSelection: _ticketQuantity,
+                          onSelected: (int? value) {
+                            if (value != null) {
+                              setState(() {
+                                _ticketQuantity = value;
+                              });
+                            }
+                          },
+                          dropdownMenuEntries: const [
+                            DropdownMenuEntry(value: 0, label: '0'),
+                            DropdownMenuEntry(value: 1, label: '1'),
+                            DropdownMenuEntry(value: 2, label: '2'),
+                            DropdownMenuEntry(value: 3, label: '3'),
+                            DropdownMenuEntry(value: 4, label: '4'),
+                            DropdownMenuEntry(value: 5, label: '5'),
+                          ],
+                        ),
+                        const SizedBox(width: 16),
+                      ],
+                    ),
+                    Padding(
+                      padding: const EdgeInsets.only(top: 20),
+                      child: ElevatedButton(
+                        onPressed: () {
+                          setState(() {
+                            totalTicket = _ticketOrdered(_ticketQuantity);
+                          });
+                        },
+                        style: ElevatedButton.styleFrom(
+                          backgroundColor: cinemaBrand,
+                          foregroundColor: Colors.white,
+                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.zero,
+                          ),
+                        ),
+                        child: Text(
+                          'ADD TO ORDER \n You ordered $totalTicket ticket${totalTicket == 1 ? '' : 's'}',
+                          textAlign: TextAlign.center,
+                          style: cinemaBodyStyle,
+                        ),
+                      ),
+                    ),
+                          ],
+                        ),
+                      ),
+                    ),
+            
+            ],
+          ),
         ),
-      ),
-    );
+      );
+    }
   }
-}
