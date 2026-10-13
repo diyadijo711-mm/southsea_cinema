@@ -74,7 +74,7 @@ class _MovieListingState extends State<MovieListing> {
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: [
                         Text(
-                          'Tickets (£6.00 each) ',
+                          'Tickets (${widget.movie.formattedPrice} each)',
                           style: cinemaBodyStyle,
                         ),
                         const SizedBox(width: 12),

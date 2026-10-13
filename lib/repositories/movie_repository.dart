@@ -12,6 +12,7 @@ class MovieRepository {
         posterPath: 'assets/images/httyd.jpeg',
         showTime: 'Sunday, 15 October 2023, 18:00',
         ageRating: 'PG',
+        price: 6.00,
       ),
       Movie(
         id: '2',
@@ -22,6 +23,7 @@ class MovieRepository {
         posterPath: 'assets/images/tangled.jpeg',
         showTime: 'Sunday, 15 October 2026, 19:00',
         ageRating: '12A',
+        price: 7.50,
       ),
     ];
     
