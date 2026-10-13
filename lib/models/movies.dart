@@ -6,6 +6,9 @@ class Movie {
   final String posterPath;
   final String showTime;
   final String ageRating;
+  final double price;
+
+
 
   const Movie({
     required this.id,
@@ -15,5 +18,19 @@ class Movie {
     required this.posterPath,
     required this.showTime,
     required this.ageRating,
+    required this.price,
   });
+
+  String get formattedPrice {
+    final String formattedValue = price.toStringAsFixed(2);
+    return '£$formattedValue';
+  }
+
+  bool get isChildFriendly {
+    return ageRating == 'U' || ageRating == 'PG';
+  }
+
+  bool get isAdultOnly {
+    return ageRating == '18';
+  }
 }
