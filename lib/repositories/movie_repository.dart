@@ -37,6 +37,25 @@ class MovieRepository {
         price: 6.00,
       ),
     ];
-    
   }
+
+    Movie? getMovieById(String id) {
+      for (final movie in getMovies()) {
+        if (movie.id == id) {
+          return movie;
+        }
+      }
+      return null;
+    }
+    List<Movie> getMoviesByAgeRating(String ageRating) {
+      return getMovies().where((movie) => movie.ageRating == ageRating).toList();
+    }
+
+    List<Movie> getMoviesUnderPrice(double maxPrice) {
+      return getMovies().where((movie) => movie.price < maxPrice).toList();
+    }
+
+
+  
 }
+
