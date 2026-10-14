@@ -45,21 +45,22 @@ class _MovieListingState extends State<MovieListing> {
                     "${widget.movie.title} (${widget.movie.ageRating})",
                     style: cinemaHeaderStyle.copyWith(fontSize: 22),
                   ),
+                  const SizedBox(height: 8),
                   Image.asset(
                     widget.movie.posterPath,
                     width: 150,
-                    height: 170,
+                    height: 200,
                     fit: BoxFit.fill,
                   ),
                   const Text(
                     'Southsea Cinema Room ',
                   ),
                   Text(
-                    '${widget.movie.showTime}',
+                    "${widget.movie.showTime} \n",
                     style: cinemaBodyStyle,
                   ),
                   Text(
-                    '${widget.movie.description}',
+                    "${widget.movie.description} \n",
                     style: cinemaBodyStyle,
                   ),
                   Row(
@@ -67,10 +68,10 @@ class _MovieListingState extends State<MovieListing> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Text(
-                        'Tickets (${widget.movie.formattedPrice} each)',
+                        'Tickets    (${widget.movie.formattedPrice} each)',
                         style: cinemaBodyStyle,
                       ),
-                      const SizedBox(width: 12),
+                      const SizedBox(width: 34),
                       DropdownMenu<int>(
                         textStyle: const TextStyle(color: Colors.white),
                         initialSelection: _ticketQuantity,
