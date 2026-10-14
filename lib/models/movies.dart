@@ -8,8 +8,6 @@ class Movie {
   final String ageRating;
   final double price;
 
-
-
   const Movie({
     required this.id,
     required this.title,

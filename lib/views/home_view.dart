@@ -18,7 +18,6 @@ class HomeView extends StatelessWidget {
         title: const Text(
           appTitle,
           style: cinemaHeaderStyle,
-        
         ),
         backgroundColor: cinemaSurface,
         iconTheme: const IconThemeData(color: cinemaBrand),

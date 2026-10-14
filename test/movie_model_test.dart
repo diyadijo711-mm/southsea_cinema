@@ -8,7 +8,8 @@ void main() {
         id: 'M3',
         title: 'Avengers: Endgame',
         runTime: '2h 28m',
-        description: 'The film follows the Avengers as they attempt to reverse the effects of Thanos\' actions.',
+        description:
+            'The film follows the Avengers as they attempt to reverse the effects of Thanos\' actions.',
         posterPath: 'assets/images/avengers.jpeg',
         showTime: '19:00',
         ageRating: 'PG',
@@ -18,7 +19,8 @@ void main() {
       expect(movie.id, 'M3');
       expect(movie.title, 'Avengers: Endgame');
       expect(movie.runTime, '2h 28m');
-      expect(movie.description, 'The film follows the Avengers as they attempt to reverse the effects of Thanos\' actions.');
+      expect(movie.description,
+          'The film follows the Avengers as they attempt to reverse the effects of Thanos\' actions.');
       expect(movie.posterPath, 'assets/images/avengers.jpeg');
       expect(movie.showTime, '19:00');
       expect(movie.ageRating, 'PG');
@@ -30,7 +32,8 @@ void main() {
         id: 'M3',
         title: 'Avengers: Endgame',
         runTime: '2h 28m',
-        description: 'The film follows the Avengers as they attempt to reverse the effects of Thanos\' actions.',
+        description:
+            'The film follows the Avengers as they attempt to reverse the effects of Thanos\' actions.',
         posterPath: 'assets/images/avengers.jpeg',
         showTime: '19:00',
         ageRating: 'PG',
@@ -45,7 +48,8 @@ void main() {
         id: 'M3',
         title: 'Avengers: Endgame',
         runTime: '2h 28m',
-        description: 'The film follows the Avengers as they attempt to reverse the effects of Thanos\' actions.',
+        description:
+            'The film follows the Avengers as they attempt to reverse the effects of Thanos\' actions.',
         posterPath: 'assets/images/avengers.jpeg',
         showTime: '19:00',
         ageRating: 'PG',
@@ -60,7 +64,8 @@ void main() {
         id: 'M3',
         title: 'Avengers: Endgame',
         runTime: '2h 28m',
-        description: 'The film follows the Avengers as they attempt to reverse the effects of Thanos\' actions.',
+        description:
+            'The film follows the Avengers as they attempt to reverse the effects of Thanos\' actions.',
         posterPath: 'assets/images/avengers.jpeg',
         showTime: '19:00',
         ageRating: '18',
@@ -71,4 +76,3 @@ void main() {
     });
   });
 }
- 

@@ -6,7 +6,7 @@ import 'package:southsea_cinema/views/movie_listing.dart';
 class MovieCard extends StatelessWidget {
   final Movie movie;
 
-  const MovieCard({super.key, required this.movie}) ;
+  const MovieCard({super.key, required this.movie});
 
   @override
   Widget build(BuildContext context) {
@@ -81,7 +81,8 @@ class MovieCard extends StatelessWidget {
                   style: ElevatedButton.styleFrom(
                     backgroundColor: cinemaBrand,
                     foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(horizontal: 13, vertical: 12),
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 13, vertical: 12),
                     shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.zero,
                     ),

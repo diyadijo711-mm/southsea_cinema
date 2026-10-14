@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:southsea_cinema/constants.dart';
 import 'package:southsea_cinema/widgets/nav_drawer.dart';
 import 'package:southsea_cinema/models/movies.dart';
-import 'package:southsea_cinema/widgets/movie_card.dart';
 
 class MovieListing extends StatefulWidget {
   final Movie movie;
@@ -12,12 +11,11 @@ class MovieListing extends StatefulWidget {
   State<MovieListing> createState() => _MovieListingState();
 }
 
-
 class _MovieListingState extends State<MovieListing> {
   int _ticketQuantity = 0;
   int totalTicket = 0;
 
-  int _ticketOrdered (int quantity) {
+  int _ticketOrdered(int quantity) {
     return quantity;
   }
 
@@ -37,7 +35,6 @@ class _MovieListingState extends State<MovieListing> {
           mainAxisAlignment: MainAxisAlignment.start,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-
             //---
             Center(
               child: Container(
@@ -111,7 +108,8 @@ class _MovieListingState extends State<MovieListing> {
                         style: ElevatedButton.styleFrom(
                           backgroundColor: cinemaBrand,
                           foregroundColor: Colors.white,
-                          padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 12),
+                          padding: const EdgeInsets.symmetric(
+                              horizontal: 10, vertical: 12),
                           shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.zero,
                           ),
@@ -123,14 +121,13 @@ class _MovieListingState extends State<MovieListing> {
                         ),
                       ),
                     ),
-                          ],
-                        ),
-                      ),
-                    ),
-            
-            ],
-          ),
+                  ],
+                ),
+              ),
+            ),
+          ],
         ),
-      );
-    }
+      ),
+    );
   }
+}
