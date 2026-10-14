@@ -13,11 +13,17 @@ void main() {
       
       await tester.pumpWidget(const SouthseaCinemaApp());
 
-    
+
+      await tester.pumpAndSettle();
+
+
       expect(find.byType(HomeView), findsOneWidget);
 
       
       expect(find.text('Southsea Cinema'), findsOneWidget);
+
+
+      expect(find.text('How to Train Your Dragon'), findsOneWidget);
 
       
       expect(find.byType(MovieCard), findsWidgets);
