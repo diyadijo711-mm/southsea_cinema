@@ -63,19 +63,21 @@ class MovieCard extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    const Text(
-                      'BOOK TICKETS',
-                      style: TextStyle(fontSize: 16),
-                    ),
-                    const SizedBox(height: 4),
-                    Text(
-                      movie.showTime.toString(),
-                      style: const TextStyle(fontSize: 16),
-                    ),
-                  ],
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      const Text(
+                        'BOOK TICKETS',
+                        style: TextStyle(fontSize: 16),
+                      ),
+                      const SizedBox(height: 4),
+                      Text(
+                        movie.showTime.toString(),
+                        style: const TextStyle(fontSize: 16),
+                      ),
+                    ],
+                  ),
                 ),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
