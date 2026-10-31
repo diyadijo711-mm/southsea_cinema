@@ -196,19 +196,35 @@ class _BasketScreenState extends State<BasketScreen> {
     );
     children.add(const SizedBox(height: 24));
     children.add(
-      SizedBox(
-        width: double.infinity,
-        child: PrimaryButton(
-          label: 'Checkout',
-          onPressed: () {
-            setState(() {
-              basket.clear();
-              _confirmationMessage = 'Thanks, your order is on its way';
-            });
-          },
-        ),
+      Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween, // Pushes them to opposite sides
+        children: [
+          SizedBox(
+            width: 150,
+            child: PrimaryButton(
+              label: 'UPDATE ORDER',
+              onPressed: () {},
+            ),
+          ),
+          
+          
+          SizedBox(
+            width: 150,
+            child: PrimaryButton(
+              label: 'BUY TICKETS',
+              onPressed: () {
+                setState(() {
+                  basket.clear();
+                  _confirmationMessage = 'Thanks, your order is on its way';
+                });
+              },
+            ),
+          ),
+        ],
       ),
     );
+
+
   if (_confirmationMessage.isNotEmpty) {
       children.add(const SizedBox(height: 12));
       children.add(
