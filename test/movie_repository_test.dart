@@ -3,6 +3,9 @@ import 'package:southsea_cinema/models/movies.dart';
 import 'package:southsea_cinema/repositories/movie_repository.dart';
 
 void main() {
+
+   TestWidgetsFlutterBinding.ensureInitialized();
+
   group('MovieRepository unit tests', () {
     test('getMovies returns three movies', () {
       final MovieRepository repository = MovieRepository();
@@ -60,5 +63,17 @@ void main() {
       expect(movies[0].price, lessThan(7.00));
       expect(movies[1].price, lessThan(7.00));
     });
+  
+    test('loadMoviesFromAsset reads the bundled JSON menu', () async {
+      final MovieRepository repository = MovieRepository();
+      final List<Movie> movies = await repository.loadMoviesFromAsset();
+
+      expect(movies.length, 3);
+      expect(movies[0].id, 'M1');
+      expect(movies[1].id, 'M2');
+      expect(movies[2].id, 'M3');
+      expect(repository.getMovies(), movies);
+    });
   });
 }
+  

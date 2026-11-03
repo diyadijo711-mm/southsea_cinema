@@ -1,7 +1,17 @@
+import 'dart:convert';
 import 'package:southsea_cinema/models/movies.dart';
+import 'package:flutter/services.dart'; 
 
 class MovieRepository {
+  List<Movie>? _cachedMovies;
+
+
   List<Movie> getMovies() {
+    final List<Movie>? cachedMovies = _cachedMovies;
+    if (cachedMovies != null) {
+      return cachedMovies;
+    }
+    
     return [
       Movie(
         id: 'M1',
@@ -54,5 +64,23 @@ class MovieRepository {
 
   List<Movie> getMoviesUnderPrice(double maxPrice) {
     return getMovies().where((movie) => movie.price < maxPrice).toList();
+  }
+
+  Future<List<Movie>> loadMoviesFromAsset({
+    String assetPath = 'assets/data/movies.json',
+  }) async {
+    final String jsonString = await rootBundle.loadString(assetPath);
+    final dynamic decodedData = jsonDecode(jsonString);
+    final List<dynamic> jsonList = decodedData as List<dynamic>;
+    final List<Movie> loadedMovies = [];
+
+    for (final dynamic item in jsonList) {
+      final Map<String, dynamic> itemMap = item as Map<String, dynamic>;
+      final Movie movie = Movie.fromJson(itemMap);
+      loadedMovies.add(movie);
+    }
+
+    _cachedMovies = loadedMovies;
+    return loadedMovies;
   }
 }
