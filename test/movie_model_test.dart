@@ -117,5 +117,7 @@ void main() {
       expect(movie.price, 6.0);
       expect(movie.price, isA<double>());
     });
+  
+
   });
 }

@@ -1,3 +1,4 @@
+import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:southsea_cinema/main.dart';
@@ -8,6 +9,9 @@ import 'package:southsea_cinema/repositories/basket_repository.dart';
 
 void main() {
   group('App smoke tests', () {
+    setUp(() {
+      rootBundle.clear();
+    });
     testWidgets('App displays HomeView with title, movie cards, and buttons',
         (WidgetTester tester) async {
       await tester.pumpWidget(const SouthseaCinemaApp());
@@ -35,7 +39,7 @@ void main() {
 
       expect(find.byType(MovieListing), findsOneWidget);
 
-      expect(find.text('How to Train Your Dragon (PG)'), findsOneWidget);
+      expect(find.text('How to Train Your Dragon (12A)'), findsOneWidget);
       expect(find.textContaining('Southsea Cinema Room'), findsOneWidget);
     });
 
