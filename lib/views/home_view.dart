@@ -6,9 +6,14 @@ import 'package:southsea_cinema/models/movies.dart';
 import 'package:southsea_cinema/widgets/movie_card.dart';
 import 'package:southsea_cinema/widgets/basket_button.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
   const HomeView({super.key});
 
+  @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
   @override
   Widget build(BuildContext context) {
     final MovieRepository repository = MovieRepository();
