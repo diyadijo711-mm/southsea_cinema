@@ -1,4 +1,3 @@
-
 class Movie {
   final String id;
   final String title;
@@ -29,33 +28,32 @@ class Movie {
     final String showTime = json['showTime'] as String;
     final String ageRating = json['ageRating'] as String;
     final double price = (json['price'] as num).toDouble();
-  
+
     return Movie(
-      id: id,
-      title: title,
-      runTime: runTime,
-      description: description,
-      posterPath: posterPath,
-      showTime: showTime,
-      ageRating: ageRating,
-      price: price  
-    );
+        id: id,
+        title: title,
+        runTime: runTime,
+        description: description,
+        posterPath: posterPath,
+        showTime: showTime,
+        ageRating: ageRating,
+        price: price);
   }
 
   Map<String, dynamic> toJson() {
-  final Map<String, dynamic> data = <String, dynamic>{
-    'id': id,
-    'title': title,
-    'runTime': runTime,
-    'description': description,
-    'posterPath': posterPath,
-    'showTime': showTime,
-    'ageRating': ageRating,
-    'price': price
-  };
-  return data;
-
+    final Map<String, dynamic> data = <String, dynamic>{
+      'id': id,
+      'title': title,
+      'runTime': runTime,
+      'description': description,
+      'posterPath': posterPath,
+      'showTime': showTime,
+      'ageRating': ageRating,
+      'price': price
+    };
+    return data;
   }
+
   String get formattedPrice {
     final String formattedValue = price.toStringAsFixed(2);
     return '£$formattedValue';

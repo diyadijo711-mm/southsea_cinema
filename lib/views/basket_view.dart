@@ -8,14 +8,14 @@ import 'package:southsea_cinema/models/basket_item.dart';
 class BasketScreen extends StatefulWidget {
   const BasketScreen({super.key});
 
-   @override
+  @override
   State<BasketScreen> createState() {
     return _BasketScreenState();
   }
 }
 
 class _BasketScreenState extends State<BasketScreen> {
-  String _confirmationMessage = ''; 
+  String _confirmationMessage = '';
   Widget _buildEmptyState() {
     return const Center(
       child: Padding(
@@ -27,8 +27,6 @@ class _BasketScreenState extends State<BasketScreen> {
       ),
     );
   }
-
-
 
   @override
   Widget build(BuildContext context) {
@@ -56,30 +54,29 @@ class _BasketScreenState extends State<BasketScreen> {
       content = _buildBasketList(cart, items);
     }
 
-        return Scaffold(
-          appBar: AppBar(
-            // 1. We create our own Row for the title
-            title: Row(
-              children: [
-                // 2. The Expanded takes the remaining space, preventing the overflow
-                Expanded( 
-                  child: Text(
-                    appTitle, 
-                    style: cinemaHeaderStyle,
-                  ),
-                ),
-              ],
+    return Scaffold(
+      appBar: AppBar(
+        // 1. We create our own Row for the title
+        title: Row(
+          children: [
+            // 2. The Expanded takes the remaining space, preventing the overflow
+            Expanded(
+              child: Text(
+                appTitle,
+                style: cinemaHeaderStyle,
+              ),
             ),
-            // 3. The button stays in actions, so it keeps its full functionality
-            actions: const [BasketButton()], 
-          ),
-          body: SingleChildScrollView(
-            padding: const EdgeInsets.all(16.0),
-            child: content,
-          ),
-        );
-    }
-
+          ],
+        ),
+        // 3. The button stays in actions, so it keeps its full functionality
+        actions: const [BasketButton()],
+      ),
+      body: SingleChildScrollView(
+        padding: const EdgeInsets.all(16.0),
+        child: content,
+      ),
+    );
+  }
 
 //----------------------------------------------------------------------------------------
 
@@ -94,7 +91,8 @@ class _BasketScreenState extends State<BasketScreen> {
               children: [
                 Text(
                   ' ${item.quantity} Tickets',
-                  style: const TextStyle(color: cinemaBrand, fontWeight: FontWeight.bold),
+                  style: const TextStyle(
+                      color: cinemaBrand, fontWeight: FontWeight.bold),
                 ),
               ],
             ),
@@ -105,8 +103,7 @@ class _BasketScreenState extends State<BasketScreen> {
               children: [
                 Text(
                   '${item.movie.title} \n${item.movie.showTime}',
-                  style: const TextStyle(
-                  ),
+                  style: const TextStyle(),
                 ),
               ],
             ),
@@ -116,7 +113,6 @@ class _BasketScreenState extends State<BasketScreen> {
               '£${(item.movie.price * item.quantity).toStringAsFixed(2)}',
             ),
           ),
-          
           IconButton(
             icon: const Icon(Icons.delete_outline, color: Colors.white),
             style: ButtonStyle(
@@ -162,7 +158,6 @@ class _BasketScreenState extends State<BasketScreen> {
     );
   }
 
-
 //----------------------------------------------------------------------------------------
   Widget _buildBasketList(BasketRepository basket, List<BasketItem> items) {
     final List<Widget> children = [];
@@ -176,7 +171,8 @@ class _BasketScreenState extends State<BasketScreen> {
             child: Text('Item', style: TextStyle(fontWeight: FontWeight.w600)),
           ),
           Expanded(
-            child: Text('Details', style: TextStyle(fontWeight: FontWeight.w600)),
+            child:
+                Text('Details', style: TextStyle(fontWeight: FontWeight.w600)),
           ),
           Expanded(
             child: Text('Price', style: TextStyle(fontWeight: FontWeight.w600)),
@@ -208,7 +204,8 @@ class _BasketScreenState extends State<BasketScreen> {
     children.add(const SizedBox(height: 24));
     children.add(
       Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween, // Pushes them to opposite sides
+        mainAxisAlignment:
+            MainAxisAlignment.spaceBetween, // Pushes them to opposite sides
         children: [
           SizedBox(
             width: 150,
@@ -217,8 +214,6 @@ class _BasketScreenState extends State<BasketScreen> {
               onPressed: () {},
             ),
           ),
-          
-          
           SizedBox(
             width: 150,
             child: PrimaryButton(
@@ -235,8 +230,7 @@ class _BasketScreenState extends State<BasketScreen> {
       ),
     );
 
-
-  if (_confirmationMessage.isNotEmpty) {
+    if (_confirmationMessage.isNotEmpty) {
       children.add(const SizedBox(height: 12));
       children.add(
         Text(
@@ -252,4 +246,3 @@ class _BasketScreenState extends State<BasketScreen> {
     );
   }
 }
-

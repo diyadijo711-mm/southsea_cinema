@@ -1,17 +1,16 @@
 import 'dart:convert';
 import 'package:southsea_cinema/models/movies.dart';
-import 'package:flutter/services.dart'; 
+import 'package:flutter/services.dart';
 
 class MovieRepository {
   List<Movie>? _cachedMovies;
-
 
   List<Movie> getMovies() {
     final List<Movie>? cachedMovies = _cachedMovies;
     if (cachedMovies != null) {
       return cachedMovies;
     }
-    
+
     return [
       Movie(
         id: 'M1',

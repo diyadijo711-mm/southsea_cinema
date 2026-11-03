@@ -27,8 +27,7 @@ class _HomeViewState extends State<HomeView> {
   Future<void> _loadMovies() async {
     try {
       final MovieRepository repository = MovieRepository();
-      final List<Movie> movies =
-          await repository.loadMoviesFromAsset();
+      final List<Movie> movies = await repository.loadMoviesFromAsset();
       if (!mounted) {
         return;
       }
@@ -64,12 +63,12 @@ class _HomeViewState extends State<HomeView> {
     }
 
     return Scaffold(
-            appBar: AppBar(
+      appBar: AppBar(
         title: Row(
           children: [
             Expanded(
               child: Text(
-                appTitle, 
+                appTitle,
                 style: cinemaHeaderStyle,
               ),
             ),
@@ -78,7 +77,7 @@ class _HomeViewState extends State<HomeView> {
         ),
       ),
       drawer: const NavDrawer(),
-      body: body, 
+      body: body,
     );
-  } // 
+  } //
 }

@@ -10,27 +10,27 @@ class BasketRepository {
     return List<BasketItem>.unmodifiable(_items);
   }
 
-    void addItem(BasketItem item) {
-      _items.add(item);
-    }
+  void addItem(BasketItem item) {
+    _items.add(item);
+  }
 
-    void removeItem(int index) {
-      if (index >= 0 && index < _items.length) {
-        _items.removeAt(index);
-      }
+  void removeItem(int index) {
+    if (index >= 0 && index < _items.length) {
+      _items.removeAt(index);
     }
+  }
 
-    int getTotalItems() { 
-      int total = 0;
-      for (final BasketItem item in _items) {
-        total += item.quantity;
-      }
-      return total;
+  int getTotalItems() {
+    int total = 0;
+    for (final BasketItem item in _items) {
+      total += item.quantity;
     }
+    return total;
+  }
 
-    int get totalItemCount {
-      return getTotalItems();
-    }
+  int get totalItemCount {
+    return getTotalItems();
+  }
 
   double getSubtotal() {
     double sum = 0.0;
@@ -50,9 +50,8 @@ class BasketRepository {
   double getTotalDue() {
     return getSubtotal() + getServiceCharge();
   }
-  
+
   void clear() {
     _items.clear();
   }
-   
 }

@@ -45,7 +45,7 @@ void main() {
 
     test('adds items and calculates subtotal and service charge correctly', () {
       final BasketRepository basket = BasketRepository.instance;
-      
+
       const BasketItem item1 = BasketItem(
         movie: testMovie,
         quantity: 2,
@@ -66,7 +66,7 @@ void main() {
       expect(basket.getServiceCharge(), 4.00);
       expect(basket.getTotalDue(), 21.00);
     });
-    
+
     test('removes items correctly', () {
       final BasketRepository basket = BasketRepository.instance;
       const BasketItem item = BasketItem(

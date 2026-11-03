@@ -92,7 +92,8 @@ void main() {
       expect(movie.id, 'M3');
       expect(movie.title, 'Avengers: Endgame');
       expect(movie.runTime, '2h 28m');
-      expect(movie.description, 'The film follows the Avengers as they attempt to reverse the effects of Thanos\' actions.');
+      expect(movie.description,
+          'The film follows the Avengers as they attempt to reverse the effects of Thanos\' actions.');
       expect(movie.posterPath, 'assets/images/avengers.jpeg');
       expect(movie.showTime, '19:00');
       expect(movie.ageRating, 'PG');
@@ -117,7 +118,5 @@ void main() {
       expect(movie.price, 6.0);
       expect(movie.price, isA<double>());
     });
-  
-
   });
 }

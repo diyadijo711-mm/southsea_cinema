@@ -19,7 +19,8 @@ class PrimaryButton extends StatelessWidget {
         foregroundColor: Colors.white,
         padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.zero, // Square corners like your other buttons
+          borderRadius:
+              BorderRadius.zero, // Square corners like your other buttons
         ),
       ),
       onPressed: onPressed,
