@@ -14,33 +14,71 @@ class HomeView extends StatefulWidget {
 }
 
 class _HomeViewState extends State<HomeView> {
+  List<Movie> _movies = [];
+  bool _loading = true;
+  String _errorMessage = '';
+
+  @override
+  void initState() {
+    super.initState();
+    _loadMovies();
+  }
+
+  Future<void> _loadMovies() async {
+    try {
+      final MovieRepository repository = MovieRepository();
+      final List<Movie> movies =
+          await repository.loadMoviesFromAsset();
+      if (!mounted) {
+        return;
+      }
+      setState(() {
+        _movies = movies;
+        _loading = false;
+      });
+    } catch (error) {
+      if (!mounted) {
+        return;
+      }
+      setState(() {
+        _errorMessage = 'Could not load the menu: $error';
+        _loading = false;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
-    final MovieRepository repository = MovieRepository();
-    final List<Movie> movies = repository.getMovies();
+    final Widget body;
+    if (_loading) {
+      body = const Center(child: CircularProgressIndicator());
+    } else if (_errorMessage.isNotEmpty) {
+      body = Center(child: Text(_errorMessage));
+    } else {
+      body = ListView.builder(
+        itemCount: _movies.length,
+        itemBuilder: (BuildContext context, int index) {
+          return MovieCard(movie: _movies[index]);
+        },
+      );
+    }
 
     return Scaffold(
-      appBar: AppBar(
+            appBar: AppBar(
         title: Row(
           children: [
-            Expanded( 
+            Expanded(
               child: Text(
-                appTitle,
+                appTitle, 
                 style: cinemaHeaderStyle,
               ),
             ),
-            const BasketButton(), 
+            const BasketButton(),
           ],
         ),
       ),
       drawer: const NavDrawer(),
-      body: ListView.builder(
-        itemCount: movies.length,
-        itemBuilder: (BuildContext context, int index) {
-          final movie = movies[index];
-          return MovieCard(movie: movie); // This uses the movie variable!
-        },
-      ),
+      body: body, 
     );
-  }
+  } // 
 }
