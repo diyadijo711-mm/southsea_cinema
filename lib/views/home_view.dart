@@ -16,11 +16,17 @@ class HomeView extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text(
-          appTitle,
-          style: cinemaHeaderStyle,
+        title: Row(
+          children: [
+            Expanded( 
+              child: Text(
+                appTitle,
+                style: cinemaHeaderStyle,
+              ),
+            ),
+            const BasketButton(), 
+          ],
         ),
-        actions: const [BasketButton()],
       ),
       drawer: const NavDrawer(),
       body: ListView.builder(
