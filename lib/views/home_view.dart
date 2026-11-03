@@ -41,7 +41,7 @@ class _HomeViewState extends State<HomeView> {
         return;
       }
       setState(() {
-        _errorMessage = 'Could not load the menu: $error';
+        _errorMessage = 'Could not load the films: $error';
         _loading = false;
       });
     }

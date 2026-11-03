@@ -39,7 +39,7 @@ class Movie {
       showTime: showTime,
       ageRating: ageRating,
       price: price  
-        );
+    );
   }
 
   Map<String, dynamic> toJson() {
@@ -56,9 +56,6 @@ class Movie {
   return data;
 
   }
- 
-
-
   String get formattedPrice {
     final String formattedValue = price.toStringAsFixed(2);
     return '£$formattedValue';
