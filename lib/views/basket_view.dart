@@ -56,17 +56,29 @@ class _BasketScreenState extends State<BasketScreen> {
       content = _buildBasketList(cart, items);
     }
 
-    return Scaffold(
-      appBar: AppBar(
-        title: const Text(appTitle, style: cinemaHeaderStyle),
-        actions: const [BasketButton()],
-      ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(16.0),
-        child: content,
-      ),
-    );
-  }
+        return Scaffold(
+          appBar: AppBar(
+            // 1. We create our own Row for the title
+            title: Row(
+              children: [
+                // 2. The Expanded takes the remaining space, preventing the overflow
+                Expanded( 
+                  child: Text(
+                    appTitle, 
+                    style: cinemaHeaderStyle,
+                  ),
+                ),
+              ],
+            ),
+            // 3. The button stays in actions, so it keeps its full functionality
+            actions: const [BasketButton()], 
+          ),
+          body: SingleChildScrollView(
+            padding: const EdgeInsets.all(16.0),
+            child: content,
+          ),
+        );
+    }
 
 
 //----------------------------------------------------------------------------------------

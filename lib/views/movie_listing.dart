@@ -4,6 +4,7 @@ import 'package:southsea_cinema/models/basket_item.dart';
 import 'package:southsea_cinema/widgets/nav_drawer.dart';
 import 'package:southsea_cinema/models/movies.dart';
 import 'package:southsea_cinema/repositories/basket_repository.dart';
+import 'package:southsea_cinema/widgets/basket_button.dart';
 
 class MovieListing extends StatefulWidget {
   final Movie movie;
@@ -26,6 +27,7 @@ class _MovieListingState extends State<MovieListing> {
     return Scaffold(
       appBar: AppBar(
         title: const Text(appTitle, style: cinemaHeaderStyle),
+        actions: const [BasketButton()],
       ),
       drawer: const NavDrawer(),
       body: SingleChildScrollView(
