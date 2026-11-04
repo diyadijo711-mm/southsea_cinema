@@ -56,10 +56,8 @@ class _BasketScreenState extends State<BasketScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        // 1. We create our own Row for the title
         title: Row(
           children: [
-            // 2. The Expanded takes the remaining space, preventing the overflow
             Expanded(
               child: Text(
                 appTitle,
@@ -68,7 +66,6 @@ class _BasketScreenState extends State<BasketScreen> {
             ),
           ],
         ),
-        // 3. The button stays in actions, so it keeps its full functionality
         actions: const [BasketButton()],
       ),
       body: SingleChildScrollView(
