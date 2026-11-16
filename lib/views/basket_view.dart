@@ -4,6 +4,9 @@ import 'package:southsea_cinema/widgets/basket_button.dart';
 import 'package:southsea_cinema/widgets/primary_button.dart';
 import 'package:southsea_cinema/repositories/basket_repository.dart';
 import 'package:southsea_cinema/models/basket_item.dart';
+import 'package:southsea_cinema/database/cinema_db.dart';
+import 'package:southsea_cinema/models/booking.dart';
+
 
 class BasketScreen extends StatefulWidget {
   const BasketScreen({super.key});
@@ -11,6 +14,22 @@ class BasketScreen extends StatefulWidget {
   @override
   State<BasketScreen> createState() {
     return _BasketScreenState();
+  }
+
+  String _buildSummary(List<BasketItem> items) {
+    final List<String> parts = [];
+    for (final BasketItem item in items) {
+      parts.add('${item.quantity} x ${item.movie.title}');
+    }
+    return parts.join(', ');
+  }
+
+  String _formatDate(DateTime now) {
+    final String day = now.day.toString().padLeft(2, '0');
+    final String month = now.month.toString().padLeft(2, '0');
+    final String hour = now.hour.toString().padLeft(2, '0');
+    final String minute = now.minute.toString().padLeft(2, '0');
+    return '$day/$month/${now.year} $hour:$minute';
   }
 }
 
@@ -242,4 +261,7 @@ class _BasketScreenState extends State<BasketScreen> {
       children: children,
     );
   }
+
+
+
 }
