@@ -2,5 +2,7 @@
   "dart.defaultFlutterDevice": "edge",
   "dart.flutterSelectDeviceWhenConnected": false,
   "dart.runPubGetOnPubspecChanges": "always",
-  "security.workspace.trust.enabled": false
+  "security.workspace.trust.enabled": false,
+  "java.configuration.updateBuildConfiguration": "interactive",
+  "java.compile.nullAnalysis.mode": "automatic"
 }
