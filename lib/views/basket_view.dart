@@ -7,13 +7,41 @@ import 'package:southsea_cinema/models/basket_item.dart';
 import 'package:southsea_cinema/database/cinema_db.dart';
 import 'package:southsea_cinema/models/booking.dart';
 
-
 class BasketScreen extends StatefulWidget {
   const BasketScreen({super.key});
 
   @override
   State<BasketScreen> createState() {
     return _BasketScreenState();
+  }
+}
+
+class _BasketScreenState extends State<BasketScreen> {
+  String _confirmationMessage = '';
+
+  List<Booking> _pastBookings = [];
+  bool _loadingBookings = true;
+
+  @override
+  void initState() {
+    super.initState();
+    _loadBookings();
+  }
+
+  Future<void> _loadBookings() async {
+    try {
+      final bookings = await CinemaDatabase.instance.getAllBookings();
+      if (!mounted) return;
+      setState(() {
+        _pastBookings = bookings;
+        _loadingBookings = false;
+      });
+    } catch (e) {
+      if (!mounted) return;
+      setState(() {
+        _loadingBookings = false;
+      });
+    }
   }
 
   String _buildSummary(List<BasketItem> items) {
@@ -31,11 +59,42 @@ class BasketScreen extends StatefulWidget {
     final String minute = now.minute.toString().padLeft(2, '0');
     return '$day/$month/${now.year} $hour:$minute';
   }
-}
 
-class _BasketScreenState extends State<BasketScreen> {
-  String _confirmationMessage = '';
-  Widget _buildEmptyState() {
+  Future<void> _checkout(BasketRepository cart, List<BasketItem> items) async {
+    final String summary = _buildSummary(items);
+    final double total = cart.getTotalDue();
+    final String date = _formatDate(DateTime.now());
+
+    try {
+      final CinemaDatabase database = CinemaDatabase.instance;
+      final int bookingNumber = await database.getNextBookingNumber();
+      final Booking record = Booking(
+        bookingNumber: bookingNumber,
+        summary: summary,
+        total: total,
+        date: date,
+      );
+
+      await database.insertBooking(record);
+      cart.clear();
+      if (!mounted) {
+        return;
+      }
+      setState(() {
+        _confirmationMessage = 'Booking $bookingNumber saved';
+      });
+      _loadBookings();
+    } catch (error) {
+      if (!mounted) {
+        return;
+      }
+      setState(() {
+        _confirmationMessage = 'Could not save your booking: $error';
+      });
+    }
+  }
+
+  Widget buildEmptyState() {
     return const Center(
       child: Padding(
         padding: EdgeInsets.symmetric(vertical: 32.0),
@@ -44,6 +103,52 @@ class _BasketScreenState extends State<BasketScreen> {
           style: TextStyle(fontSize: 16, color: Colors.grey),
         ),
       ),
+    );
+  }
+
+  Widget buildPastBookings() {
+    if (_loadingBookings) {
+      return const Center(child: CircularProgressIndicator());
+    }
+    if (_pastBookings.isEmpty) {
+      return const Text(
+        'No past bookings yet.',
+        style: TextStyle(color: Colors.grey),
+      );
+    }
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: _pastBookings.map((booking) {
+        return Card(
+          color: cinemaSurface,
+          margin: const EdgeInsets.only(bottom: 12),
+          child: Padding(
+            padding: const EdgeInsets.all(12.0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      'Booking #${booking.bookingNumber}',
+                      style: const TextStyle(fontWeight: FontWeight.bold),
+                    ),
+                    Text('£${booking.total.toStringAsFixed(2)}'),
+                  ],
+                ),
+                const SizedBox(height: 4),
+                Text(booking.summary),
+                const SizedBox(height: 4),
+                Text(
+                  booking.date,
+                  style: const TextStyle(fontSize: 12, color: Colors.grey),
+                ),
+              ],
+            ),
+          ),
+        );
+      }).toList(),
     );
   }
 
@@ -58,7 +163,7 @@ class _BasketScreenState extends State<BasketScreen> {
         content = Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildEmptyState(),
+            buildEmptyState(),
             const SizedBox(height: 12),
             Text(
               _confirmationMessage,
@@ -67,10 +172,10 @@ class _BasketScreenState extends State<BasketScreen> {
           ],
         );
       } else {
-        content = _buildEmptyState();
+        content = buildEmptyState();
       }
     } else {
-      content = _buildBasketList(cart, items);
+      content = buildBasketList(cart, items);
     }
 
     return Scaffold(
@@ -89,14 +194,26 @@ class _BasketScreenState extends State<BasketScreen> {
       ),
       body: SingleChildScrollView(
         padding: const EdgeInsets.all(16.0),
-        child: content,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            content,
+            const SizedBox(height: 32),
+            const Divider(color: Colors.white24),
+            const SizedBox(height: 16),
+            const Text(
+              'Past Bookings',
+              style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 16),
+            buildPastBookings(),
+          ],
+        ),
       ),
     );
   }
 
-//----------------------------------------------------------------------------------------
-
-  Widget _buildLineItem(BasketRepository basket, BasketItem item, int index) {
+  Widget buildLineItem(BasketRepository basket, BasketItem item, int index) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 8.0),
       child: Row(
@@ -108,7 +225,9 @@ class _BasketScreenState extends State<BasketScreen> {
                 Text(
                   ' ${item.quantity} Tickets',
                   style: const TextStyle(
-                      color: cinemaBrand, fontWeight: FontWeight.bold),
+                    color: cinemaBrand,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ],
             ),
@@ -154,7 +273,7 @@ class _BasketScreenState extends State<BasketScreen> {
     );
   }
 
-  Widget _buildTotalRow(String label, String value, {bool emphasise = false}) {
+  Widget buildTotalRow(String label, String value, {bool emphasise = false}) {
     final TextStyle style;
     if (emphasise) {
       style = const TextStyle(fontWeight: FontWeight.bold, fontSize: 16);
@@ -174,8 +293,7 @@ class _BasketScreenState extends State<BasketScreen> {
     );
   }
 
-//----------------------------------------------------------------------------------------
-  Widget _buildBasketList(BasketRepository basket, List<BasketItem> items) {
+  Widget buildBasketList(BasketRepository basket, List<BasketItem> items) {
     final List<Widget> children = [];
 
     children.add(const Text('My Order', style: cinemaSubStyle));
@@ -187,8 +305,7 @@ class _BasketScreenState extends State<BasketScreen> {
             child: Text('Item', style: TextStyle(fontWeight: FontWeight.w600)),
           ),
           Expanded(
-            child:
-                Text('Details', style: TextStyle(fontWeight: FontWeight.w600)),
+            child: Text('Details', style: TextStyle(fontWeight: FontWeight.w600)),
           ),
           Expanded(
             child: Text('Price', style: TextStyle(fontWeight: FontWeight.w600)),
@@ -200,18 +317,18 @@ class _BasketScreenState extends State<BasketScreen> {
 
     for (int index = 0; index < items.length; index++) {
       final BasketItem item = items[index];
-      children.add(_buildLineItem(basket, item, index));
+      children.add(buildLineItem(basket, item, index));
     }
 
     children.add(const SizedBox(height: 24));
     children.add(
-      _buildTotalRow(
+      buildTotalRow(
         'Service Charge',
         '£${basket.getServiceCharge().toStringAsFixed(2)}',
       ),
     );
     children.add(
-      _buildTotalRow(
+      buildTotalRow(
         'Total Due',
         '£${basket.getTotalDue().toStringAsFixed(2)}',
         emphasise: true,
@@ -220,8 +337,7 @@ class _BasketScreenState extends State<BasketScreen> {
     children.add(const SizedBox(height: 24));
     children.add(
       Row(
-        mainAxisAlignment:
-            MainAxisAlignment.spaceBetween, // Pushes them to opposite sides
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           SizedBox(
             width: 150,
@@ -235,10 +351,7 @@ class _BasketScreenState extends State<BasketScreen> {
             child: PrimaryButton(
               label: 'BUY TICKETS',
               onPressed: () {
-                setState(() {
-                  basket.clear();
-                  _confirmationMessage = 'Thanks, your order is on its way';
-                });
+                _checkout(basket, items);
               },
             ),
           ),
@@ -261,7 +374,5 @@ class _BasketScreenState extends State<BasketScreen> {
       children: children,
     );
   }
-
-
-
 }
+

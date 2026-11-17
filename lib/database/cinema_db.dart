@@ -2,11 +2,11 @@ import 'package:path/path.dart';
 import 'package:southsea_cinema/models/booking.dart';
 import 'package:sqflite/sqflite.dart';
 
-class CinemaDatabase{
+class CinemaDatabase {
   CinemaDatabase._internal();
 
-  static final CinemaDatabase instance =CinemaDatabase._internal();
-  
+  static final CinemaDatabase instance = CinemaDatabase._internal();
+
   static Database? _database;
 
   void setDatabase(Database? db) {
@@ -48,8 +48,8 @@ class CinemaDatabase{
 
   Future<void> _createDB(Database db, int version) async {
     await createTables(db, version);
-    
-      await db.insert('bookings', <String, Object?>{
+
+    await db.insert('bookings', <String, Object?>{
       'booking_number': 1003,
       'summary': '2 x Adult, How to Train Your Dragon',
       'total': 12.00,
@@ -70,7 +70,6 @@ class CinemaDatabase{
       'date': '11/01/2026 13:02',
     });
   }
-
 
   Future<int> insertBooking(Booking booking) async {
     final Database db = await database;
@@ -110,7 +109,7 @@ class CinemaDatabase{
     return currentMax + 1;
   }
 
-   Future<void> close() async {
+  Future<void> close() async {
     final Database? cachedDatabase = _database;
     if (cachedDatabase != null) {
       await cachedDatabase.close();
@@ -118,4 +117,3 @@ class CinemaDatabase{
     }
   }
 }
-

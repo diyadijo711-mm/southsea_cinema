@@ -61,7 +61,6 @@ class SouthseaCinemaApp extends StatelessWidget {
   }
 }
 
-
 class UnsupportedPlatformApp extends StatelessWidget {
   const UnsupportedPlatformApp({super.key});
 
