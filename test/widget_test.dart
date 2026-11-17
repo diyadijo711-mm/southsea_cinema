@@ -1,4 +1,3 @@
-import 'package:flutter/services.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:southsea_cinema/main.dart';
@@ -6,12 +5,35 @@ import 'package:southsea_cinema/widgets/movie_card.dart';
 import 'package:southsea_cinema/views/home_view.dart';
 import 'package:southsea_cinema/views/movie_listing.dart';
 import 'package:southsea_cinema/repositories/basket_repository.dart';
+import 'package:southsea_cinema/database/cinema_db.dart';
+import 'package:sqflite_common_ffi/sqflite_ffi.dart';
+import 'package:southsea_cinema/models/booking.dart';
+import 'package:southsea_cinema/models/movies.dart';       // ADD THIS
+import 'package:southsea_cinema/models/basket_item.dart';  // ADD THIS
+import 'package:southsea_cinema/views/basket_view.dart';   
+
 
 void main() {
+  setUp(() async {
+    sqfliteFfiInit();
+    final Database database = await databaseFactoryFfiNoIsolate.openDatabase(
+      inMemoryDatabasePath,
+      options: OpenDatabaseOptions(
+        version: 1,
+        onCreate: CinemaDatabase.instance.createTables, // Use the test table creator
+      ),
+    );
+    CinemaDatabase.instance.setDatabase(database);
+    BasketRepository.instance.clear();
+  });
+
+  tearDown(() async {
+    await CinemaDatabase.instance.close();
+  });
+
+
   group('App smoke tests', () {
-    setUp(() {
-      rootBundle.clear();
-    });
+    
     testWidgets('App displays HomeView with title, movie cards, and buttons',
         (WidgetTester tester) async {
       await tester.pumpWidget(const SouthseaCinemaApp());
@@ -35,7 +57,8 @@ void main() {
       await tester.pumpAndSettle();
 
       await tester.tap(find.text('Book Now').first);
-      await tester.pumpAndSettle();
+      await tester.pump();
+      await tester.pump(const Duration(seconds: 1));
 
       expect(find.byType(MovieListing), findsOneWidget);
 
@@ -66,5 +89,57 @@ void main() {
 
       basket.clear();
     });
+
+    testWidgets('Checkout saves a booking and shows confirmation', (WidgetTester tester) async {
+      const testMovie = Movie(
+        id: 'M1',
+        title: 'How to Train Your Dragon',
+        ageRating: 'PG',
+        description: 'Test',
+        runTime: '1h 42m',
+        showTime: '01/01/2026',
+        posterPath: 'assets/images/httyd.jpeg',
+        price: 6.00,
+      );
+      BasketRepository.instance.addItem(const BasketItem(movie: testMovie, quantity: 2));
+
+      await tester.pumpWidget(const MaterialApp(home: BasketScreen()));
+      await tester.pumpAndSettle();
+
+      await tester.runAsync(() async {
+        await tester.tap(find.text('BUY TICKETS'));
+        await tester.pumpAndSettle();
+      });
+      await tester.pumpAndSettle();
+
+      expect(find.textContaining('Booking 1001 saved'), findsOneWidget);
+
+      final bookings = await tester.runAsync(() => CinemaDatabase.instance.getAllBookings());
+      expect(bookings?.length, 1);
+      expect(bookings?[0].bookingNumber, 1001);
+      expect(bookings?[0].total, 16.00);
+    });
+
+    testWidgets('Basket screen displays past bookings', (WidgetTester tester) async {
+      await tester.runAsync(() async {
+        await CinemaDatabase.instance.insertBooking(
+          const Booking(
+            bookingNumber: 1001,
+            summary: '2 x How to Train Your Dragon',
+            total: 12.00,
+            date: '01/01/2026 10:00',
+          ),
+        );
+      });
+
+      await tester.pumpWidget(const MaterialApp(home: BasketScreen()));
+      await tester.pumpAndSettle();
+
+      expect(find.text('Booking #1001'), findsOneWidget);
+      expect(find.text('2 x How to Train Your Dragon'), findsOneWidget);
+      expect(find.text('£12.00'), findsOneWidget);
+    });
+  
   });
 }
+
