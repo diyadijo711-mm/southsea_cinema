@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:southsea_cinema/main.dart';
 import 'package:southsea_cinema/widgets/movie_card.dart';
@@ -8,19 +9,19 @@ import 'package:southsea_cinema/repositories/basket_repository.dart';
 import 'package:southsea_cinema/database/cinema_db.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 import 'package:southsea_cinema/models/booking.dart';
-import 'package:southsea_cinema/models/movies.dart';       // ADD THIS
-import 'package:southsea_cinema/models/basket_item.dart';  // ADD THIS
-import 'package:southsea_cinema/views/basket_view.dart';   
-
+import 'package:southsea_cinema/models/movies.dart';
+import 'package:southsea_cinema/models/basket_item.dart';
+import 'package:southsea_cinema/views/basket_view.dart';
 
 void main() {
   setUp(() async {
+    rootBundle.clear();
     sqfliteFfiInit();
     final Database database = await databaseFactoryFfiNoIsolate.openDatabase(
       inMemoryDatabasePath,
       options: OpenDatabaseOptions(
         version: 1,
-        onCreate: CinemaDatabase.instance.createTables, // Use the test table creator
+        onCreate: CinemaDatabase.instance.createTables,
       ),
     );
     CinemaDatabase.instance.setDatabase(database);
@@ -31,23 +32,16 @@ void main() {
     await CinemaDatabase.instance.close();
   });
 
-
   group('App smoke tests', () {
-    
     testWidgets('App displays HomeView with title, movie cards, and buttons',
         (WidgetTester tester) async {
       await tester.pumpWidget(const SouthseaCinemaApp());
-
       await tester.pumpAndSettle();
 
       expect(find.byType(HomeView), findsOneWidget);
-
       expect(find.text('Southsea Cinema'), findsOneWidget);
-
       expect(find.text('How to Train Your Dragon'), findsOneWidget);
-
       expect(find.byType(MovieCard), findsWidgets);
-
       expect(find.text('Book Now'), findsWidgets);
     });
 
@@ -57,11 +51,9 @@ void main() {
       await tester.pumpAndSettle();
 
       await tester.tap(find.text('Book Now').first);
-      await tester.pump();
-      await tester.pump(const Duration(seconds: 1));
+      await tester.pumpAndSettle();
 
       expect(find.byType(MovieListing), findsOneWidget);
-
       expect(find.text('How to Train Your Dragon (12A)'), findsOneWidget);
       expect(find.textContaining('Southsea Cinema Room'), findsOneWidget);
     });
@@ -73,6 +65,7 @@ void main() {
 
       await tester.pumpWidget(const SouthseaCinemaApp());
       await tester.pumpAndSettle();
+
       await tester.tap(find.text('Book Now').first);
       await tester.pumpAndSettle();
 
@@ -90,7 +83,8 @@ void main() {
       basket.clear();
     });
 
-    testWidgets('Checkout saves a booking and shows confirmation', (WidgetTester tester) async {
+    testWidgets('Checkout saves a booking and shows confirmation',
+        (WidgetTester tester) async {
       const testMovie = Movie(
         id: 'M1',
         title: 'How to Train Your Dragon',
@@ -101,7 +95,8 @@ void main() {
         posterPath: 'assets/images/httyd.jpeg',
         price: 6.00,
       );
-      BasketRepository.instance.addItem(const BasketItem(movie: testMovie, quantity: 2));
+      BasketRepository.instance
+          .addItem(const BasketItem(movie: testMovie, quantity: 2));
 
       await tester.pumpWidget(const MaterialApp(home: BasketScreen()));
       await tester.pumpAndSettle();
@@ -114,13 +109,15 @@ void main() {
 
       expect(find.textContaining('Booking 1001 saved'), findsOneWidget);
 
-      final bookings = await tester.runAsync(() => CinemaDatabase.instance.getAllBookings());
+      final bookings =
+          await tester.runAsync(() => CinemaDatabase.instance.getAllBookings());
       expect(bookings?.length, 1);
       expect(bookings?[0].bookingNumber, 1001);
       expect(bookings?[0].total, 16.00);
     });
 
-    testWidgets('Basket screen displays past bookings', (WidgetTester tester) async {
+    testWidgets('Basket screen displays past bookings',
+        (WidgetTester tester) async {
       await tester.runAsync(() async {
         await CinemaDatabase.instance.insertBooking(
           const Booking(
@@ -139,7 +136,5 @@ void main() {
       expect(find.text('2 x How to Train Your Dragon'), findsOneWidget);
       expect(find.text('£12.00'), findsOneWidget);
     });
-  
   });
 }
-

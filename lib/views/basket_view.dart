@@ -305,7 +305,8 @@ class _BasketScreenState extends State<BasketScreen> {
             child: Text('Item', style: TextStyle(fontWeight: FontWeight.w600)),
           ),
           Expanded(
-            child: Text('Details', style: TextStyle(fontWeight: FontWeight.w600)),
+            child:
+                Text('Details', style: TextStyle(fontWeight: FontWeight.w600)),
           ),
           Expanded(
             child: Text('Price', style: TextStyle(fontWeight: FontWeight.w600)),
@@ -375,4 +376,3 @@ class _BasketScreenState extends State<BasketScreen> {
     );
   }
 }
-
