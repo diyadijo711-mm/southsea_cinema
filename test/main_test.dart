@@ -12,6 +12,7 @@ import 'package:southsea_cinema/models/booking.dart';
 import 'package:southsea_cinema/models/movies.dart';
 import 'package:southsea_cinema/models/basket_item.dart';
 import 'package:southsea_cinema/views/basket_view.dart';
+import 'package:southsea_cinema/views/settings_view.dart';
 
 void main() {
   setUp(() async {
@@ -33,6 +34,52 @@ void main() {
   });
 
   group('App smoke tests', () {
+    testWidgets('App starts in dark mode and provides both theme variants',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(const SouthseaCinemaApp());
+      await tester.pumpAndSettle();
+
+      final MaterialApp app =
+          tester.widget<MaterialApp>(find.byType(MaterialApp));
+      expect(app.themeMode, ThemeMode.dark);
+      expect(app.theme?.brightness, Brightness.light);
+      expect(app.darkTheme?.brightness, Brightness.dark);
+      expect(
+        Theme.of(tester.element(find.byType(HomeView))).brightness,
+        Brightness.dark,
+      );
+    });
+
+    testWidgets('Settings route callback updates the app theme mode',
+        (WidgetTester tester) async {
+      await tester.pumpWidget(const SouthseaCinemaApp());
+      await tester.pumpAndSettle();
+
+      Navigator.of(tester.element(find.byType(HomeView)))
+          .pushNamed('/settings');
+      await tester.pumpAndSettle();
+
+      final SettingsScreen settings =
+          tester.widget<SettingsScreen>(find.byType(SettingsScreen));
+      settings.onThemeModeChanged(ThemeMode.light);
+      await tester.pumpAndSettle();
+
+      final MaterialApp app =
+          tester.widget<MaterialApp>(find.byType(MaterialApp));
+      expect(app.themeMode, ThemeMode.light);
+      expect(
+        Theme.of(tester.element(find.byType(SettingsScreen))).brightness,
+        Brightness.light,
+      );
+
+      settings.onThemeModeChanged(ThemeMode.dark);
+      await tester.pumpAndSettle();
+      expect(
+        tester.widget<MaterialApp>(find.byType(MaterialApp)).themeMode,
+        ThemeMode.dark,
+      );
+    });
+
     testWidgets('App displays HomeView with title, movie cards, and buttons',
         (WidgetTester tester) async {
       await tester.pumpWidget(const SouthseaCinemaApp());

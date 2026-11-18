@@ -1,7 +1,14 @@
 import 'package:flutter/material.dart';
 
 class SettingsScreen extends StatelessWidget {
-  const SettingsScreen({super.key});
+  final ThemeMode themeMode;
+  final ValueChanged<ThemeMode> onThemeModeChanged;
+
+  const SettingsScreen({
+    super.key,
+    required this.themeMode,
+    required this.onThemeModeChanged,
+  });
 
   @override
   Widget build(BuildContext context) {

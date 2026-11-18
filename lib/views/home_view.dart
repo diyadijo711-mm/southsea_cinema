@@ -7,7 +7,14 @@ import 'package:southsea_cinema/widgets/movie_card.dart';
 import 'package:southsea_cinema/widgets/basket_button.dart';
 
 class HomeView extends StatefulWidget {
-  const HomeView({super.key});
+  final ThemeMode themeMode;
+  final ValueChanged<ThemeMode> onThemeModeChanged;
+
+  const HomeView({
+    super.key,
+    required this.themeMode,
+    required this.onThemeModeChanged,
+  });
 
   @override
   State<HomeView> createState() => _HomeViewState();
