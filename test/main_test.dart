@@ -50,7 +50,7 @@ void main() {
       );
     });
 
-    testWidgets('Settings route callback updates the app theme mode',
+    testWidgets('Settings switch updates the app theme mode',
         (WidgetTester tester) async {
       await tester.pumpWidget(const SouthseaCinemaApp());
       await tester.pumpAndSettle();
@@ -59,21 +59,28 @@ void main() {
           .pushNamed('/settings');
       await tester.pumpAndSettle();
 
-      final SettingsScreen settings =
-          tester.widget<SettingsScreen>(find.byType(SettingsScreen));
-      settings.onThemeModeChanged(ThemeMode.light);
+      expect(find.text('Light mode'), findsOneWidget);
+      await tester.tap(find.byType(SwitchListTile));
       await tester.pumpAndSettle();
 
       final MaterialApp app =
           tester.widget<MaterialApp>(find.byType(MaterialApp));
       expect(app.themeMode, ThemeMode.light);
       expect(
+        tester.widget<SwitchListTile>(find.byType(SwitchListTile)).value,
+        isTrue,
+      );
+      expect(
         Theme.of(tester.element(find.byType(SettingsScreen))).brightness,
         Brightness.light,
       );
 
-      settings.onThemeModeChanged(ThemeMode.dark);
+      await tester.tap(find.byType(SwitchListTile));
       await tester.pumpAndSettle();
+      expect(
+        tester.widget<SwitchListTile>(find.byType(SwitchListTile)).value,
+        isFalse,
+      );
       expect(
         tester.widget<MaterialApp>(find.byType(MaterialApp)).themeMode,
         ThemeMode.dark,

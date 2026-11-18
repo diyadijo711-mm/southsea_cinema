@@ -12,9 +12,22 @@ class SettingsScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const Scaffold(
-      body: Center(
-        child: Text('Settings Screen'),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Settings'),
+      ),
+      body: ListView(
+        children: [
+          SwitchListTile(
+            title: const Text('Light mode'),
+            value: themeMode == ThemeMode.light,
+            onChanged: (bool isLightMode) {
+              onThemeModeChanged(
+                isLightMode ? ThemeMode.light : ThemeMode.dark,
+              );
+            },
+          ),
+        ],
       ),
     );
   }
