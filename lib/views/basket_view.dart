@@ -95,12 +95,15 @@ class _BasketScreenState extends State<BasketScreen> {
   }
 
   Widget buildEmptyState() {
-    return const Center(
+    return Center(
       child: Padding(
-        padding: EdgeInsets.symmetric(vertical: 32.0),
+        padding: const EdgeInsets.symmetric(vertical: 32.0),
         child: Text(
           'Your basket is empty',
-          style: TextStyle(fontSize: 16, color: Colors.grey),
+          style: TextStyle(
+            fontSize: 16,
+            color: Theme.of(context).colorScheme.onSurfaceVariant,
+          ),
         ),
       ),
     );
@@ -111,16 +114,18 @@ class _BasketScreenState extends State<BasketScreen> {
       return const Center(child: CircularProgressIndicator());
     }
     if (_pastBookings.isEmpty) {
-      return const Text(
+      return Text(
         'No past bookings yet.',
-        style: TextStyle(color: Colors.grey),
+        style: TextStyle(
+          color: Theme.of(context).colorScheme.onSurfaceVariant,
+        ),
       );
     }
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: _pastBookings.map((booking) {
         return Card(
-          color: cinemaSurface,
+          color: Theme.of(context).colorScheme.surface,
           margin: const EdgeInsets.only(bottom: 12),
           child: Padding(
             padding: const EdgeInsets.all(12.0),
@@ -142,7 +147,10 @@ class _BasketScreenState extends State<BasketScreen> {
                 const SizedBox(height: 4),
                 Text(
                   booking.date,
-                  style: const TextStyle(fontSize: 12, color: Colors.grey),
+                  style: TextStyle(
+                    fontSize: 12,
+                    color: Theme.of(context).colorScheme.onSurfaceVariant,
+                  ),
                 ),
               ],
             ),
@@ -199,7 +207,7 @@ class _BasketScreenState extends State<BasketScreen> {
           children: [
             content,
             const SizedBox(height: 32),
-            const Divider(color: Colors.white24),
+            Divider(color: Theme.of(context).colorScheme.outlineVariant),
             const SizedBox(height: 16),
             const Text(
               'Past Bookings',
@@ -224,8 +232,8 @@ class _BasketScreenState extends State<BasketScreen> {
               children: [
                 Text(
                   ' ${item.quantity} Tickets',
-                  style: const TextStyle(
-                    color: cinemaBrand,
+                  style: TextStyle(
+                    color: Theme.of(context).colorScheme.primary,
                     fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -249,11 +257,19 @@ class _BasketScreenState extends State<BasketScreen> {
             ),
           ),
           IconButton(
-            icon: const Icon(Icons.delete_outline, color: Colors.white),
+            icon: Icon(
+              Icons.delete_outline,
+              color: Theme.of(context).colorScheme.onPrimary,
+            ),
             style: ButtonStyle(
-              backgroundColor: WidgetStateProperty.all(cinemaBrand),
+              backgroundColor: WidgetStateProperty.all(
+                Theme.of(context).colorScheme.primary,
+              ),
               side: WidgetStateProperty.all(
-                const BorderSide(color: cinemaBrand, width: 2),
+                BorderSide(
+                  color: Theme.of(context).colorScheme.primary,
+                  width: 2,
+                ),
               ),
               shape: WidgetStateProperty.all(
                 const RoundedRectangleBorder(
@@ -278,7 +294,7 @@ class _BasketScreenState extends State<BasketScreen> {
     if (emphasise) {
       style = const TextStyle(fontWeight: FontWeight.bold, fontSize: 16);
     } else {
-      style = const TextStyle(color: Colors.grey);
+      style = TextStyle(color: Theme.of(context).colorScheme.onSurfaceVariant);
     }
 
     return Padding(

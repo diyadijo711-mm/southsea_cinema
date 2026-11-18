@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:southsea_cinema/models/movies.dart';
-import 'package:southsea_cinema/constants.dart';
 import 'package:southsea_cinema/views/movie_listing.dart';
 import 'package:southsea_cinema/widgets/primary_button.dart';
 
@@ -11,9 +10,11 @@ class MovieCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final ColorScheme colorScheme = Theme.of(context).colorScheme;
+
     return Card(
       margin: const EdgeInsets.all(8.0),
-      color: cinemaBackground,
+      color: Theme.of(context).scaffoldBackgroundColor,
       child: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
@@ -23,17 +24,17 @@ class MovieCard extends StatelessWidget {
               children: [
                 Text(
                   movie.title,
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
-                    color: cinemaBrand,
+                    color: colorScheme.primary,
                   ),
                 ),
                 Text(
                   ' (${movie.ageRating})',
-                  style: const TextStyle(
+                  style: TextStyle(
                     fontSize: 16,
-                    color: Colors.grey,
+                    color: colorScheme.onSurfaceVariant,
                   ),
                 ),
               ],
@@ -52,10 +53,7 @@ class MovieCard extends StatelessWidget {
                 Expanded(
                   child: Text(
                     movie.description,
-                    style: const TextStyle(
-                      color: Colors.white,
-                      fontSize: 16,
-                    ),
+                    style: Theme.of(context).textTheme.bodyLarge,
                   ),
                 ),
               ],

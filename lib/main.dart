@@ -43,35 +43,40 @@ class _SouthseaCinemaAppState extends State<SouthseaCinemaApp> {
 
   @override
   Widget build(BuildContext context) {
+    final ColorScheme darkColorScheme = ColorScheme.fromSeed(
+      brightness: Brightness.dark,
+      seedColor: cinemaBrand,
+      primary: cinemaBrand,
+      onPrimary: Colors.white,
+      surface: cinemaSurface,
+      onSurfaceVariant: Colors.grey,
+      outlineVariant: Colors.white24,
+    );
+    final ColorScheme lightColorScheme = ColorScheme.fromSeed(
+      seedColor: cinemaBrand,
+      surface: Colors.white,
+    );
     final ThemeData darkTheme = ThemeData.dark().copyWith(
       scaffoldBackgroundColor: cinemaBackground,
-      appBarTheme: const AppBarTheme(
+      appBarTheme: AppBarTheme(
         backgroundColor: cinemaSurface,
-        iconTheme: IconThemeData(color: cinemaBrand),
-        titleTextStyle: cinemaHeaderStyle,
+        iconTheme: IconThemeData(color: darkColorScheme.primary),
+        titleTextStyle:
+            cinemaHeaderStyle.copyWith(color: darkColorScheme.onSurface),
         elevation: 0,
       ),
-      colorScheme: ColorScheme.fromSeed(
-        brightness: Brightness.dark,
-        seedColor: cinemaBrand,
-        primary: cinemaBrand,
-        surface: cinemaSurface,
-      ),
+      colorScheme: darkColorScheme,
     );
     final ThemeData lightTheme = ThemeData.light().copyWith(
       scaffoldBackgroundColor: const Color(0xFFF5F6F8),
       appBarTheme: AppBarTheme(
         backgroundColor: Colors.white,
-        iconTheme: const IconThemeData(color: cinemaBrand),
+        iconTheme: IconThemeData(color: lightColorScheme.primary),
         titleTextStyle:
-            cinemaHeaderStyle.copyWith(color: const Color(0xFF1B1E28)),
+            cinemaHeaderStyle.copyWith(color: lightColorScheme.onSurface),
         elevation: 0,
       ),
-      colorScheme: ColorScheme.fromSeed(
-        seedColor: cinemaBrand,
-        primary: cinemaBrand,
-        surface: Colors.white,
-      ),
+      colorScheme: lightColorScheme,
     );
 
     return MaterialApp(

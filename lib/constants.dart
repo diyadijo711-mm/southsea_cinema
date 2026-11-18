@@ -14,19 +14,16 @@ const Color cinemaSurface = Color(0xFF242936);
 const Color cinemaDDButton = Color.fromARGB(255, 126, 156, 165);
 
 const TextStyle cinemaHeaderStyle = TextStyle(
-  color: cinemaFontWhite,
   fontSize: 24,
   fontWeight: FontWeight.bold,
 );
 
 const TextStyle cinemaSubStyle = TextStyle(
-  color: cinemaFontWhite,
   fontSize: 20,
   fontWeight: FontWeight.bold,
 );
 
 const TextStyle cinemaBodyStyle = TextStyle(
-  color: cinemaFontWhite,
   fontSize: 15,
   fontWeight: FontWeight.normal,
 );

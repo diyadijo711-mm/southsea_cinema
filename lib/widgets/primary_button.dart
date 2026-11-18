@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:southsea_cinema/constants.dart';
 
 class PrimaryButton extends StatelessWidget {
   final String label;
@@ -15,8 +14,8 @@ class PrimaryButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return ElevatedButton(
       style: ElevatedButton.styleFrom(
-        backgroundColor: cinemaBrand, // Use your Southsea color
-        foregroundColor: Colors.white,
+        backgroundColor: Theme.of(context).colorScheme.primary,
+        foregroundColor: Theme.of(context).colorScheme.onPrimary,
         padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 24),
         shape: RoundedRectangleBorder(
           borderRadius:

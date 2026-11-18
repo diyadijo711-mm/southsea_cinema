@@ -24,6 +24,8 @@ class _MovieListingState extends State<MovieListing> {
 
   @override
   Widget build(BuildContext context) {
+    final ColorScheme colorScheme = Theme.of(context).colorScheme;
+
     return Scaffold(
       appBar: AppBar(
         title: const Text(appTitle, style: cinemaHeaderStyle),
@@ -35,7 +37,7 @@ class _MovieListingState extends State<MovieListing> {
           alignment: Alignment.topLeft,
           child: Container(
             width: double.infinity,
-            color: cinemaSurface,
+            color: colorScheme.surface,
             margin: const EdgeInsets.all(16.0),
             padding: const EdgeInsets.all(16.0),
             child: Column(
@@ -74,7 +76,7 @@ class _MovieListingState extends State<MovieListing> {
                     ),
                     const SizedBox(width: 34),
                     DropdownMenu<int>(
-                      textStyle: const TextStyle(color: Colors.white),
+                      textStyle: TextStyle(color: colorScheme.onSurface),
                       initialSelection: _ticketQuantity,
                       onSelected: (int? value) {
                         if (value != null) {
@@ -112,8 +114,8 @@ class _MovieListingState extends State<MovieListing> {
                       });
                     },
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: cinemaBrand,
-                      foregroundColor: Colors.white,
+                      backgroundColor: colorScheme.primary,
+                      foregroundColor: colorScheme.onPrimary,
                       padding: const EdgeInsets.symmetric(
                           horizontal: 10, vertical: 12),
                       shape: RoundedRectangleBorder(

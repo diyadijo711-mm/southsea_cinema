@@ -79,6 +79,23 @@ class _HomeViewState extends State<HomeView> {
                 style: cinemaHeaderStyle,
               ),
             ),
+            IconButton(
+              tooltip: widget.themeMode == ThemeMode.dark
+                  ? 'Switch to light mode'
+                  : 'Switch to dark mode',
+              icon: Icon(
+                widget.themeMode == ThemeMode.dark
+                    ? Icons.light_mode
+                    : Icons.dark_mode,
+              ),
+              onPressed: () {
+                widget.onThemeModeChanged(
+                  widget.themeMode == ThemeMode.dark
+                      ? ThemeMode.light
+                      : ThemeMode.dark,
+                );
+              },
+            ),
             const BasketButton(),
           ],
         ),
